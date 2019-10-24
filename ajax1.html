@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+   
+    <title>Tuto AJAX</title>
+  </head>
+  <body>
+    <button id="button">Get Text File</button>
+    <div id="text"></div>
+
+    <script>
+        document.getElementById('button').addEventListener('click',loadText);
+    function loadText(){
+
+      const xhr=new XMLHttpRequest();
+
+      xhr.open('GET','sample.txt',true);
+
+    //   xhr.onprogress=function(){
+    //       console.log('progess',this.readyState);
+    //   }
+
+
+     
+
+      xhr.onload=function(){
+          if(this.status == 200){
+            // console.log('data',this.responseText);
+            document.getElementById('text').innerHTML=this.responseText;
+          }else if(this.status == 404){
+            document.getElementById('text').innerHTML='Error 404 not found';
+          }
+      }
+
+    //   xhr.onreadystatechange=function(){
+    //       if(this.readyState==4 && this.status==200){
+    //         //   console.log(this.responseText);
+    //       }
+    //   }
+
+
+      xhr.send();
+     
+    }
+    </script>
+  </body>
+</html>

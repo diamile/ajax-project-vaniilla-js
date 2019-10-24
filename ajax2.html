@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+   
+    <title>Tuto AJAX - JSON</title>
+  </head>
+  <body>
+    <button id="button1">Get user</button>
+    <button id="button2">Get users</button>
+
+    <h1>user</h1>
+    <div id="user"></div>
+
+    <h1>users</h1>
+    <div id="users"></div>
+
+    <script>
+    document.getElementById('button1').addEventListener('click',getUser);
+    document.getElementById('button2').addEventListener('click',getUsers);
+
+   //getUsers
+    function getUsers(){
+        const xhr=new XMLHttpRequest();
+
+        xhr.open('GET','users.json',true);
+
+        xhr.onload=function(){
+            
+           if(this.status==200){
+               const datas=JSON.parse(this.responseText);
+
+               var output="";
+
+               datas.forEach(data => {
+                   const dom=`<ul>
+                   <li>
+                   ${data.id}
+                   </li>
+                   <li>
+                   ${data.name}
+                   </li>
+                   <li>
+                   ${data.email}
+                   </li>
+                   </ul>`
+
+                   output+=dom;
+                   
+               });
+
+             document.getElementById('users').innerHTML=output;
+
+
+              
+              
+           }
+        }
+
+        xhr.send();
+
+    }
+
+    //getUser
+
+    function getUser(){
+        const xhr=new XMLHttpRequest();
+
+        xhr.open('GET','user.json',true);
+
+        xhr.onload=function(){
+           if(this.status==200){
+
+               const data=JSON.parse(this.responseText);
+            
+               const createDom=`<ul>
+               <li>
+                ${data.id}
+               </li>
+
+               <li>
+                ${data.name}
+               </li>
+
+                 <li>
+                ${data.email}
+               </li>
+               </ul>`
+               document.getElementById('user').innerHTML=createDom;
+           }
+        }
+
+        xhr.send();
+
+    }
+    </script>
+  </body>
+</html>
